@@ -11,6 +11,7 @@ function App() {
     <LayoutDefault>
       <main>
         <Routes>
+          <Route path='/' element={<Login/>}/>
           <Route path='/create-character' element={<CreateCharacterForm />} />
           <Route path='/login' element={<Login />} />
         </Routes>
