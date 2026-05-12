@@ -7,7 +7,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('https://dnd-backend-3a9o.onrender.com/api/auth/login', formData)
+      const res = await axios.post('https://dnd-backend-3a9o.onrender.com/api/auth/login', formData , {withCredentials: true})
       console.log(res)
     } catch (err) {
       throw err
