@@ -10,12 +10,18 @@ const api = axios.create({
 function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  if (parts.length === 2) {
+    return parts.pop().split(';').shift();
+  }
 }
-const cookie = getCookie('accessToken')
 
-const header = {authorization: `Bearer ${cookie}`}
-console.log(header)
+
+const setCookieForRequest = () => {
+  const cookie = getCookie('accessToken')
+
+  const headers = { authorization: `Bearer ${cookie}` }
+  return { headers }
+}
 
 // 2. add a header for each request with te bearer token
 const request = async (callback) => {
@@ -24,7 +30,7 @@ const request = async (callback) => {
     return res.data
   } catch (err) {
     const message = err.response?.data?.message || "An error has occurred with the API"
-    throw new Error(message, {cause: err})
+    throw new Error(message, { cause: err })
   }
 }
 
@@ -34,7 +40,7 @@ const logoutUser = () => request(() => api.post('/api/auth/logout'))
 const getMe = () => request(() => api.get('/api/auth/me'))
 
 const createCharacter = (payload) => request(() => api.post('/api/character/', payload))
-const createUserCharacter = (payload) => request(() => api.post('/api/user/', payload), {headers: header})
+const createUserCharacter = (payload) => request(() => api.post('/api/user/', payload), setCookieForRequest())
 
 export {
   registerUser,
