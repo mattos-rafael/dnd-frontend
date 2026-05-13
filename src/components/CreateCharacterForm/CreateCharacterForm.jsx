@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import ButtonForm from "../ButtonForm/ButtonForm"
 import CheckboxForm from "../CheckboxForm/CheckboxForm"
-import { UNSAFE_createClientRoutesWithHMRRevalidationOptOut } from "react-router-dom"
+import { createCharacter } from "../../services/api"
 
 function CreateCharacterForm() {
   const [url, setUrl] = useState('https://www.dnd5eapi.co/api/races')
@@ -21,6 +21,7 @@ function CreateCharacterForm() {
   const [classes, setClasses] = useState('')
   const [classInfo, setClassInfo] = useState({})
   const [hitDie, setHitDie] = useState(0)
+  const [savingThrow, setSavingThrow] = useState([])
   const [proficiencies, setProficiencies] = useState([])
   const [equipment, setEquipment] = useState([])
   const [atributes, setAtributes] = useState({})
@@ -38,7 +39,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   if(answers.length < source.choose) {
     console.log(source.from.options)
     if (e.target.checked) {
-      console.log(e.target.value)
       setAnswers((prev) => [...prev, ...source.from?.options.filter((option) => {
         if (option.ability_score) {
           return option.ability_score.name == e.target.value
@@ -222,7 +222,9 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     if (formState == 6) {
       setHitDie(classInfo?.hit_die)
 
-      
+      setSavingThrow(() => {
+        return classInfo?.saving_throws.map((st) => st.name)
+      })
 
       setEquipment(classInfo?.starting_equipment)
 
@@ -254,16 +256,13 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   // useEffect(() => {
   //   console.log(proficiencies)
   // }, [proficiencies])
-  useEffect(() => {
-    console.log("form data")
-    console.log(formData)
-  }, [formData])
+  // useEffect(() => {
+  //   console.log("form data")
+  //   console.log(formData)
+  // }, [formData])
 
     
   const normilize = () => {
-    console.log("log")
-    console.log(atributes)
-    console.log(abilityBonus)
 
     let listEquipment = []
 
@@ -278,27 +277,48 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     let listAtributes = []
     const listAtributesNames = Object.keys(atributes)
     listAtributesNames.forEach(atr => {
-      listAtributes = [...listAtributes, {name: atr, value: atributes[atr]}]
+      listAtributes = [...listAtributes, {name: atr, val: atributes[atr]}]
     });
 
+    let modCon = 0
+    
+    if (atributes.CON <= 9) {
+      modCon = -1
+    } else if (atributes.CON == 10 && atributes.CON <= 11) {
+      modCon = 0
+    } else if (atributes.CON == 12 && atributes.CON <= 13) {
+      modCon = 1
+    } else if (atributes.CON == 14 && atributes.CON <= 15) {
+      modCon = 2
+    } else if (atributes.CON == 16 && atributes.CON <= 17) {
+      modCon = 3
+    } else if (atributes.CON == 18 && atributes.CON <= 19) {
+      modCon = 4
+    } else if (atributes.CON == 20 && atributes.CON <= 21) {
+      modCon = 5
+    } else if (atributes.CON == 22 && atributes.CON <= 23) {
+      modCon = 6
+    }
+
+    const life = hitDie + modCon
     
     console.log(listAtributes)
 
     setFormData({
       race: race,
-      subRace: subRace,
+      sub_race: subRace,
       traits: traits,
       lenguages: lenguages,
       class: classes,
-      hitDie: hitDie,
+      hit_die: hitDie,
       proficiencies: proficiencies,
       equipment: listEquipment,
       atributes: listAtributes,
       level: 1,
-      name: name
+      name: name,
+      life: life,
+      saving_throws: savingThrow
     })
-    console.log("form data")
-    console.log(formData)
   }
 
 
@@ -337,6 +357,10 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     )
   }
   
+  const  HandleCreateCharacter = async () => {
+    const res = await createCharacter(formData)
+    console.log(res)
+  }
 
   return(
     <>
@@ -372,6 +396,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
       {formState > 1 ? <button type="button" onClick={() => setFormState((prev) => prev-1)}>Back</button> : null}
       {formState > 1 && formState < 10 ? <button type="button" onClick={() => setFormState((prev) => prev+1)}>Next</button> : null}
+      {formState == 10 ? <button type="button" onClick={() => HandleCreateCharacter((prev) => prev+1)}>Create</button> : null}
     </>
   )
 }
