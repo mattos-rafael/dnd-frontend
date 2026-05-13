@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import ButtonForm from "../ButtonForm/ButtonForm"
 import CheckboxForm from "../CheckboxForm/CheckboxForm"
-import { createCharacter } from "../../services/api"
+import { createCharacter, createUserCharacter } from "../../services/api"
 
 function CreateCharacterForm() {
   const [url, setUrl] = useState('https://www.dnd5eapi.co/api/races')
@@ -357,9 +357,15 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     )
   }
   
+
+  
+
   const  HandleCreateCharacter = async () => {
+    
     const res = await createCharacter(formData)
-    console.log(res)
+    const data = {characterId: res}
+    await createUserCharacter(data)
+    
   }
 
   return(
