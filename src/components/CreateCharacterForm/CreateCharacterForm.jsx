@@ -24,7 +24,8 @@ function CreateCharacterForm() {
   const [proficiencies, setProficiencies] = useState([])
   const [equipment, setEquipment] = useState([])
   const [atributes, setAtributes] = useState({})
-
+  const [name, setName] = useState('')
+  const [formData, setFormData] = useState({})
 
   //state to save the bonus abilities
 
@@ -170,6 +171,10 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
         CHA: 8
       })
     }
+
+    if (formState == 10) {
+      normilize()
+    } 
     
   }, [formState])
 
@@ -228,9 +233,9 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     
   }, [classInfo])
 
-  useEffect(() => {
-    console.log(abilityBonus)
-  }, [abilityBonus])
+  // useEffect(() => {
+  //   console.log(abilityBonus)
+  // }, [abilityBonus])
   // useEffect(() => {
   //   console.log(traits)
   // }, [traits])
@@ -240,17 +245,61 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   // useEffect(() => {
   //   console.log(subRaceInfo)
   // }, [subRaceInfo])
+  // useEffect(() => {
+  //   console.log(answers)
+  // }, [answers])
+  // useEffect(() => {
+  //   console.log(classesList)
+  // }, [classesList])
+  // useEffect(() => {
+  //   console.log(proficiencies)
+  // }, [proficiencies])
   useEffect(() => {
-    console.log(answers)
-  }, [answers])
-  useEffect(() => {
-    console.log(classesList)
-  }, [classesList])
-  useEffect(() => {
-    console.log(proficiencies)
-  }, [proficiencies])
+    console.log("form data")
+    console.log(formData)
+  }, [formData])
 
     
+  const normilize = () => {
+    console.log("log")
+    console.log(atributes)
+    console.log(abilityBonus)
+
+    let listEquipment = []
+
+    equipment.forEach(equipment => {
+      listEquipment = [...listEquipment, equipment.equipment.name]
+    });
+
+    abilityBonus.forEach((ability) => {
+      atributes[ability.ability_score.name] = atributes[ability.ability_score.name] + ability.bonus
+    })
+
+    let listAtributes = []
+    const listAtributesNames = Object.keys(atributes)
+    listAtributesNames.forEach(atr => {
+      listAtributes = [...listAtributes, {name: atr, value: atributes[atr]}]
+    });
+
+    
+    console.log(listAtributes)
+
+    setFormData({
+      race: race,
+      subRace: subRace,
+      traits: traits,
+      lenguages: lenguages,
+      class: classes,
+      hitDie: hitDie,
+      proficiencies: proficiencies,
+      equipment: listEquipment,
+      atributes: listAtributes,
+      level: 1,
+      name: name
+    })
+    console.log("form data")
+    console.log(formData)
+  }
 
 
   const chooseRace = (race) => {
@@ -312,6 +361,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
         {proficiencies ? proficiencies.map((proficiency) => <input type="text" value={proficiency} /> ): null}
         {equipment ? equipment.map((equipment) => <input type="text" value={equipment.equipment.name}/> ) : null}
         {formState == 8 ? atributesTable() : null}
+        {formState == 9 ? <input type="text" value={name} onChange={(e) => setName(e.target.value)}/> : null}
       </form>
 
       
@@ -321,7 +371,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       
 
       {formState > 1 ? <button type="button" onClick={() => setFormState((prev) => prev-1)}>Back</button> : null}
-      {formState > 1 && formState < 9 ? <button type="button" onClick={() => setFormState((prev) => prev+1)}>Next</button> : null}
+      {formState > 1 && formState < 10 ? <button type="button" onClick={() => setFormState((prev) => prev+1)}>Next</button> : null}
     </>
   )
 }
