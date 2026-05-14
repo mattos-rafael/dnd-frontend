@@ -6,25 +6,15 @@ const api = axios.create({
   withCredentials: true,
 })
 
-// 1. get the cookie with js
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-const cookie = getCookie('accessToken')
-
-const header = {authorization: `Bearer ${cookie}`}
-console.log(header)
-
-// 2. add a header for each request with te bearer token
+// Using HttpOnly cookies for auth; browser sends cookie automatically.
+// `withCredentials: true` is set on the axios instance above.
 const request = async (callback) => {
   try {
     const res = await callback()
     return res.data
   } catch (err) {
     const message = err.response?.data?.message || "An error has occurred with the API"
-    throw new Error(message, {cause: err})
+    throw new Error(message, { cause: err })
   }
 }
 
@@ -34,7 +24,7 @@ const logoutUser = () => request(() => api.post('/api/auth/logout'))
 const getMe = () => request(() => api.get('/api/auth/me'))
 
 const createCharacter = (payload) => request(() => api.post('/api/character/', payload))
-const createUserCharacter = (payload) => request(() => api.post('/api/user/', payload), {headers: header})
+const createUserCharacter = (payload) => request(() => api.post('/api/user/', payload))
 
 export {
   registerUser,

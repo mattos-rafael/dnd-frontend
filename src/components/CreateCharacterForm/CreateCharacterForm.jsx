@@ -363,6 +363,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   const  HandleCreateCharacter = async () => {
     
     const res = await createCharacter(formData)
+    console.log(res)
     const data = {characterId: res}
     await createUserCharacter(data)
     
