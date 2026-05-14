@@ -3,8 +3,10 @@ import { useEffect, useState } from "react"
 import ButtonForm from "../ButtonForm/ButtonForm"
 import CheckboxForm from "../CheckboxForm/CheckboxForm"
 import { createCharacter, createUserCharacter } from "../../services/api"
+import { useNavigate } from "react-router-dom"
 
 function CreateCharacterForm() {
+  const navigate = useNavigate()
   const [url, setUrl] = useState('https://www.dnd5eapi.co/api/races')
   const [formState, setFormState] = useState(1)
   const [race, setRace] = useState('')
@@ -120,10 +122,19 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
  
   useEffect(() => {
     if (subRaceList?.length == 0 && race) {
-      setFormState((prev) => prev+1)
+      setFormState(3)
+      if (!raceInfo?.ability_bonus_options) {
+        setFormState((prev) => prev+1)
+      }
     }
   }, [subRaceList])
 
+  useEffect(() => {
+    if (subRace) {
+      setFormState((prev) => prev+1)
+    }
+
+  }, [subRace])
 
   // Form state
   useEffect(() => {
@@ -131,10 +142,22 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
     if (formState == 1) {
       setUrl(`https://www.dnd5eapi.co/api/races`)
+      setRace('')
+      setSubRace('')
+      setAbilityBonus([])
+      setTraits([])
+      setLenguages([])
+      setClasses([])
+      setHitDie(0)
+      setSavingThrow([])
+      setProficiencies([])
+      setEquipment([])
+      setAtributes({})
+      setName('')
+      setFormData({})
+
     }
-    if (formState == 2) {
-      console.log(raceInfo)
-    }
+    
     if (formState == 3) {
       setAbilityBonus(raceInfo.ability_bonuses)
       setAnswers([])
@@ -146,6 +169,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
           return [...prev, ...answers]
         })
       }
+      setFormState((prev) => prev+1)
     }
     if (formState == 5) {
       setUrl('https://www.dnd5eapi.co/api/classes')
@@ -159,7 +183,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     }
     if (formState == 8) {
       setProficiencies((prev) => {
-        return [...prev, ...answers.map((pro) => pro.item.name.split(':')[1])]
+        return [...prev, ...answers.map((pro) => pro.item.name.split(':')[1].trim(''))]
       })
 
       setAtributes({
@@ -192,6 +216,9 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       const raceLenguages = raceInfo?.languages?.map((lenguages) => lenguages.name)
       return raceLenguages
     })
+
+    
+    
   }, [raceInfo])
 
   // SubRace info
@@ -302,7 +329,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
     const life = hitDie + modCon
     
-    console.log(listAtributes)
 
     setFormData({
       race: race,
@@ -361,38 +387,60 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   
 
   const  HandleCreateCharacter = async () => {
+    try{
+      const res = await createCharacter(formData)
+      const data = {characterId: res}
+      await createUserCharacter(data)
+
+      navigate('/dashboard')
+    } catch (err) {
+      throw new Error(err)
+    }
     
-    const res = await createCharacter(formData)
-    console.log(res)
-    const data = {characterId: res}
-    await createUserCharacter(data)
     
   }
 
   return(
     <>
       <form>
+        <label>Race</label>
         <input type="text"
         value={race}
         />
+
+        {subRace ? <><label>Sub race</label>
         <input type="text"
-        value={subRace}
-        />
-        {abilityBonus?.map((ability, id) => <input key={id} type="text" value={`${ability.ability_score.name} ${ability.bonus}`}/>)}
+        value={subRace}/></> : null}
+        
+
+        <label>Ability score bonus</label>
+        {abilityBonus?.map((ability) => <input key={ability} type="text" value={`${ability.ability_score.name} ${ability.bonus}`}/>)}
+
+        <label>Lenguages</label>
         {lenguages ? <input type="text" value={lenguages}/> : null}
-        {raceInfo?.ability_bonus_options ? <CheckboxForm name='ability_score' options={raceInfo?.ability_bonus_options} onChange={(e) => changeAbilityBonus(e, raceInfo?.ability_bonus_options)}/> : null}
-        {traits ? <input type="text" value={traits}/> : null}
+        
+        <label>Traits</label>
+        {traits ? traits.map((trait) =><input key={trait} type="text" value={trait}/>) : null}
+
+        <label>Proficiencies</label>
         <input type="text"
         value={classes}/>
 
+        <label>Proficiencies</label>
         <input type="number" 
         value={hitDie}/>
 
-        {formState == 7 ? <CheckboxForm name='proficency' options={classInfo?.proficiency_choices[0]} onChange={(e) => changeAbilityBonus(e, classInfo?.proficiency_choices[0])} /> : null}
+        <label>Proficiencies</label>
         {proficiencies ? proficiencies.map((proficiency) => <input type="text" value={proficiency} /> ): null}
         {equipment ? equipment.map((equipment) => <input type="text" value={equipment.equipment.name}/> ) : null}
+        
+      </form>
+
+      <form>
+        {raceInfo?.ability_bonus_options && formState == 3 ? <><label>{`Choose ${raceInfo?.ability_bonus_options.choose}`}</label><CheckboxForm name='ability_score' options={raceInfo?.ability_bonus_options} onChange={(e) => changeAbilityBonus(e, raceInfo?.ability_bonus_options)}/></> : null}
+        {formState == 7 ? <><label>{`Choose ${classInfo?.proficiency_choices[0].choose}`}</label><CheckboxForm name='proficency' options={classInfo?.proficiency_choices[0]} onChange={(e) => changeAbilityBonus(e, classInfo?.proficiency_choices[0])} /></> : null}
         {formState == 8 ? atributesTable() : null}
-        {formState == 9 ? <input type="text" value={name} onChange={(e) => setName(e.target.value)}/> : null}
+        {formState == 9 ? <><label>Name your character</label><input type="text" value={name} onChange={(e) => setName(e.target.value)}/></>: null}
       </form>
 
       
@@ -401,7 +449,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       {formState == 5 ? classesList?.map((classes) => <ButtonForm key={classes.name} text={classes?.name} onClick={() => chooseClass(classes)}></ButtonForm>) : null}
       
 
-      {formState > 1 ? <button type="button" onClick={() => setFormState((prev) => prev-1)}>Back</button> : null}
+      {formState > 1 ? <button type="button" onClick={() => setFormState(1)}>Reset</button> : null}
       {formState > 1 && formState < 10 ? <button type="button" onClick={() => setFormState((prev) => prev+1)}>Next</button> : null}
       {formState == 10 ? <button type="button" onClick={() => HandleCreateCharacter((prev) => prev+1)}>Create</button> : null}
     </>
