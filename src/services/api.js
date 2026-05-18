@@ -27,6 +27,7 @@ const getMe = () => request(() => api.get('/api/auth/me'))
 const createCharacter = (payload) => request(() => api.post('/api/character', payload))
 const createUserCharacter = (payload) => request(() => api.post('/api/user', payload))
 const getUserCharacters = () => request(() => api.get('/api/user'))
+const deleteCharacter = (payload) => request(() => api.delete(`/api/user/${payload}`))
 
 export {
   registerUser,
@@ -36,5 +37,6 @@ export {
   getMe,
   createCharacter,
   createUserCharacter,
-  getUserCharacters
+  getUserCharacters,
+  deleteCharacter
 }

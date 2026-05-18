@@ -32,7 +32,7 @@ function Header() {
   return(
     <header className={styles["header"]}>
       <div className={styles["headerContent"]}>
-        <h1>The Tavern</h1>
+        {user ? <h1 className={styles['header-title']}><Link to={'/dashboard'}>The Tavern</Link></h1> : <h1 className={styles['header-title']}>The Tavern</h1>}
         {user ? (
           <div className={styles["userInfo"]}>
             <div className={styles["userAvatar"]}>{getUserInitial()}</div>

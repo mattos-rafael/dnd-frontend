@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from './CharacterInfo.module.css'
+import { deleteCharacter } from "../../services/api";
 
 function CharacterInfo () {
   const location = useLocation()
@@ -20,6 +21,15 @@ function CharacterInfo () {
     return res
   }
 
+  const handleDelete = async () => {
+    const res = confirm('Do you want to delete this character?')
+    if (res) {
+      await deleteCharacter(character._id)
+
+      navigate('/dashboard')
+    }
+  }
+
   const handleGoBack = () => {
     navigate('/dashboard')
   }
@@ -27,8 +37,12 @@ function CharacterInfo () {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <button className={styles.backButton} onClick={handleGoBack}>
+        <button className={styles.backButton} onClick={() => handleGoBack()}>
           ← Back to Dashboard
+        </button>
+
+        <button className={styles.backButton} onClick={() => handleDelete()}>
+          Delete character
         </button>
         
         <div className={styles.characterCard}>
