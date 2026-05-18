@@ -1,7 +1,10 @@
-function ButtonForm({text, onClick}) {
+import styles from './ButtonForm.module.css'
 
+function ButtonForm({text, onClick}) {
   return(
-    <button type="button" onClick={onClick}>{text}</button>
+    <button type="button" className={styles.button} onClick={onClick}>
+      {text}
+    </button>
   )
 }
 

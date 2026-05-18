@@ -1,0 +1,445 @@
+/* Dashboard.module.css - Mobile First */
+
+/* Dashboard Container */
+.dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+  padding: 20px;
+}
+
+/* Content Wrapper */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+  padding: 10px;
+}
+
+/* Create Character Button */
+.createBtn {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.createBtn:active {
+  transform: scale(0.97);
+}
+
+/* Characters Grid */
+.charactersGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Character Card */
+.characterCard {
+  background: #2d2d2d;
+  border-radius: 20px;
+  padding: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 4px solid #a855f7;
+  position: relative;
+  overflow: hidden;
+  animation: cardFadeIn 0.4s ease-out;
+}
+
+/* Card Hover Effect (Desktop) */
+@media (min-width: 768px) {
+  .characterCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    background: #353535;
+  }
+}
+
+/* Character Name */
+.characterName {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+/* Character Class */
+.characterClass {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  color: #c084fc;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 16px 0;
+}
+
+/* Character Race (Optional - if you add it) */
+.characterRace {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0 0 16px 0;
+}
+
+/* Character Level (Optional) */
+.characterLevel {
+  display: inline-block;
+  background: #4a1d6d;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c084fc;
+  margin-bottom: 16px;
+}
+
+/* Card Footer */
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Info Button */
+.infoBtn {
+  background: transparent;
+  border: 2px solid #a855f7;
+  color: #c084fc;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.infoBtn:active {
+  transform: scale(0.96);
+}
+
+/* Delete Button (Optional) */
+.deleteBtn {
+  background: transparent;
+  border: 2px solid #ef4444;
+  color: #ef4444;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deleteBtn:active {
+  transform: scale(0.96);
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  background: #2d2d2d;
+  border-radius: 20px;
+  border-left: 4px solid #a855f7;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin-bottom: 12px;
+}
+
+.emptyText {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+.emptyBtn {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Loading State */
+.loadingState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(168, 85, 247, 0.3);
+  border-top-color: #a855f7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loadingText {
+  margin-top: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #c084fc;
+  font-size: 14px;
+}
+
+/* Button Ripple Effects */
+.createBtn::before,
+.infoBtn::before,
+.deleteBtn::before,
+.emptyBtn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.createBtn:active::before,
+.infoBtn:active::before,
+.deleteBtn:active::before,
+.emptyBtn:active::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* ============================================ */
+/* Animations */
+/* ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================ */
+/* Responsive Breakpoints */
+/* ============================================ */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .dashboard {
+    padding: 32px;
+  }
+  
+  .title {
+    font-size: 36px;
+  }
+  
+  .createBtn {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+  
+  .charactersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .characterName {
+    font-size: 22px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .dashboard {
+    padding: 40px;
+  }
+  
+  .title {
+    font-size: 42px;
+  }
+  
+  .createBtn {
+    padding: 14px 32px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .createBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(168, 85, 247, 0.3);
+  }
+  
+  .charactersGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  
+  .characterCard {
+    padding: 24px;
+  }
+  
+  .infoBtn {
+    cursor: pointer;
+  }
+  
+  .infoBtn:hover {
+    background: rgba(168, 85, 247, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+  }
+  
+  .deleteBtn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .emptyBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(168, 85, 247, 0.3);
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .charactersGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .createBtn {
+    width: 100%;
+  }
+  
+  .characterName {
+    font-size: 18px;
+  }
+}
+
+/* ============================================ */
+/* Touch Device Optimizations */
+/* ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  .createBtn:active,
+  .infoBtn:active,
+  .deleteBtn:active {
+    transform: scale(0.96);
+  }
+  
+  .characterCard:active {
+    transform: scale(0.99);
+  }
+}
+
+/* ============================================ */
+/* Scrollbar */
+/* ============================================ */
+
+.dashboard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+.dashboard::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 4px;
+}
+
+.dashboard::-webkit-scrollbar-thumb:hover {
+  background: #c084fc;
+}

@@ -4,6 +4,7 @@ import ButtonForm from "../ButtonForm/ButtonForm"
 import CheckboxForm from "../CheckboxForm/CheckboxForm"
 import { createCharacter, createUserCharacter } from "../../services/api"
 import { useNavigate } from "react-router-dom"
+import styles from './CreateCharacterForm.module.css'
 
 function CreateCharacterForm() {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ function CreateCharacterForm() {
   const [subRaceList, setSubRaceList] = useState([])
   const [abilityBonus, setAbilityBonus] = useState([])
   const [traits, setTraits] = useState([])
-  const [lenguages, setLenguages] = useState([])
+  const [languages, setLanguages] = useState([])
   const [answers, setAnswers]= useState([])
   const [classesList, setClassesList] = useState([])
   const [classes, setClasses] = useState('')
@@ -146,7 +147,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       setSubRace('')
       setAbilityBonus([])
       setTraits([])
-      setLenguages([])
+      setLanguages([])
       setClasses([])
       setHitDie(0)
       setSavingThrow([])
@@ -212,9 +213,9 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
     setAbilityBonus(raceInfo.ability_bonuses)
 
-    setLenguages(() => {
-      const raceLenguages = raceInfo?.languages?.map((lenguages) => lenguages.name)
-      return raceLenguages
+    setLanguages(() => {
+      const raceLanguages = raceInfo?.languages?.map((languages) => languages.name)
+      return raceLanguages
     })
 
     
@@ -235,9 +236,9 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       setAbilityBonus((prev) => [...prev, ...subRaceInfo.ability_bonuses])
     }
 
-    setLenguages(() => {
-      const raceLenguages = raceInfo?.languages?.map((e) => e.name)
-      return raceLenguages
+    setLanguages(() => {
+      const raceLanguages = raceInfo?.languages?.map((e) => e.name)
+      return raceLanguages
     })
   }, [subRaceInfo])
 
@@ -269,8 +270,8 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   //   console.log(traits)
   // }, [traits])
   // useEffect(() => {
-  //   console.log(lenguages)
-  // }, [lenguages])
+  //   console.log(languages)
+  // }, [languages])
   // useEffect(() => {
   //   console.log(subRaceInfo)
   // }, [subRaceInfo])
@@ -298,7 +299,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     });
 
     abilityBonus.forEach((ability) => {
-      atributes[ability.ability_score.name] = atributes[ability.ability_score.name] + ability.bonus
+      atributes[ability.ability_score.name] = atributes[ability.ability_score.name]*1 + ability.bonus*1
     })
 
     let listAtributes = []
@@ -334,7 +335,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       race: race,
       sub_race: subRace,
       traits: traits,
-      lenguages: lenguages,
+      languages: languages,
       class: classes,
       hit_die: hitDie,
       proficiencies: proficiencies,
@@ -373,11 +374,17 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   const atributesTable = () => {
     return (
       <>
+      <label>Strength</label>
       <input type="number" min={8} max={20} name="STR" id="" step={1} value={atributes.STR} onChange={(e) => setAtributes({...atributes, STR: e.target.value})}/>
+      <label>Constitution</label>
       <input type="number" min={8} max={20} name="CON" id="" step={1} value={atributes.CON} onChange={(e) => setAtributes({...atributes, CON: e.target.value})}/>
+      <label>Dexterity</label>
       <input type="number" min={8} max={20} name="DEX" id="" step={1} value={atributes.DEX} onChange={(e) => setAtributes({...atributes, DEX: e.target.value})}/>
+      <label>Inteligence</label>
       <input type="number" min={8} max={20} name="INT" id="" step={1} value={atributes.INT} onChange={(e) => setAtributes({...atributes, INT: e.target.value})}/>
+      <label>Wisdom</label>
       <input type="number" min={8} max={20} name="WIS" id="" step={1} value={atributes.WIS} onChange={(e) => setAtributes({...atributes, WIS: e.target.value})}/>
+      <label>Charisma</label>
       <input type="number" min={8} max={20} name="CHA" id="" step={1} value={atributes.CHA} onChange={(e) => setAtributes({...atributes, CHA: e.target.value})}/>
       </>
     )
@@ -401,58 +408,187 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   }
 
   return(
-    <>
-      <form>
-        <label>Race</label>
-        <input type="text"
-        value={race}
-        />
+    <div className={styles["app-container"]}>
+      <div className={styles["forms-wrapper"]}>
+        {/* Left Form - Information Display */}
+        <form className={styles["info-form"]}>
+          <h3 className={styles["form-title"]}>Character Information</h3>
+          
+          <div className={styles["form-group"]}>
+            <label>Race</label>
+            <input type="text" value={race} readOnly />
+          </div>
 
-        {subRace ? <><label>Sub race</label>
-        <input type="text"
-        value={subRace}/></> : null}
-        
+          {subRace && (
+            <div className={styles["form-group"]}>
+              <label>Sub Race</label>
+              <input type="text" value={subRace} readOnly />
+            </div>
+          )}
 
-        <label>Ability score bonus</label>
-        {abilityBonus?.map((ability) => <input key={ability} type="text" value={`${ability.ability_score.name} ${ability.bonus}`}/>)}
+          <div className={styles["form-group"]}>
+            <label>Ability Score Bonus</label>
+            {abilityBonus?.map((ability) => (
+              <input 
+                key={ability} 
+                type="text" 
+                value={`${ability.ability_score.name} ${ability.bonus}`}
+                readOnly
+              />
+            ))}
+          </div>
 
-        <label>Lenguages</label>
-        {lenguages ? <input type="text" value={lenguages}/> : null}
-        
-        <label>Traits</label>
-        {traits ? traits.map((trait) =><input key={trait} type="text" value={trait}/>) : null}
+          <div className={styles["form-group"]}>
+            <label>Languages</label>
+            {languages ? <input type="text" value={languages} readOnly /> : null}
+          </div>
 
-        <label>Proficiencies</label>
-        <input type="text"
-        value={classes}/>
+          <div className={styles["form-group"]}>
+            <label>Traits</label>
+            {traits ? traits.map((trait) => (
+              <input key={trait} type="text" value={trait} readOnly />
+            )) : null}
+          </div>
 
-        <label>Proficiencies</label>
-        <input type="number" 
-        value={hitDie}/>
+          <div className={styles["form-group"]}>
+            <label>Proficiencies</label>
+            <input type="text" value={classes} readOnly />
+          </div>
 
-        <label>Proficiencies</label>
-        {proficiencies ? proficiencies.map((proficiency) => <input type="text" value={proficiency} /> ): null}
-        {equipment ? equipment.map((equipment) => <input type="text" value={equipment.equipment.name}/> ) : null}
-        
-      </form>
+          <div className={styles["form-group"]}>
+            <label>Hit Die</label>
+            <input type="number" value={hitDie} readOnly />
+          </div>
 
-      <form>
-        {raceInfo?.ability_bonus_options && formState == 3 ? <><label>{`Choose ${raceInfo?.ability_bonus_options.choose}`}</label><CheckboxForm name='ability_score' options={raceInfo?.ability_bonus_options} onChange={(e) => changeAbilityBonus(e, raceInfo?.ability_bonus_options)}/></> : null}
-        {formState == 7 ? <><label>{`Choose ${classInfo?.proficiency_choices[0].choose}`}</label><CheckboxForm name='proficency' options={classInfo?.proficiency_choices[0]} onChange={(e) => changeAbilityBonus(e, classInfo?.proficiency_choices[0])} /></> : null}
-        {formState == 8 ? atributesTable() : null}
-        {formState == 9 ? <><label>Name your character</label><input type="text" value={name} onChange={(e) => setName(e.target.value)}/></>: null}
-      </form>
+          <div className={styles["form-group"]}>
+            <label>Additional Proficiencies</label>
+            {proficiencies ? proficiencies.map((proficiency, idx) => (
+              <input key={idx} type="text" value={proficiency} readOnly />
+            )) : null}
+          </div>
+
+          <div className={styles["form-group"]}>
+            <label>Equipment</label>
+            {equipment ? equipment.map((item, idx) => (
+              <input key={idx} type="text" value={item.equipment.name} readOnly />
+            )) : null}
+          </div>
+        </form>
+
+        {/* Center Form - Interactive Selection */}
+        <form className={styles["center-form"]}>
+          <h3 className={styles["form-title"]}>Character Creation</h3>
+          
+          {raceInfo?.ability_bonus_options && formState == 3 && (
+            <>
+              <div className={styles["form-group"]}>
+                <label>{`Choose ${raceInfo?.ability_bonus_options.choose}`}</label>
+                <CheckboxForm 
+                  name='ability_score' 
+                  options={raceInfo?.ability_bonus_options} 
+                  onChange={(e) => changeAbilityBonus(e, raceInfo?.ability_bonus_options)}
+                />
+              </div>
+            </>
+          )}
+          
+          {formState == 7 && classInfo?.proficiency_choices[0] && (
+            <>
+              <div className={styles["form-group"]}>
+                <label>{`Choose ${classInfo?.proficiency_choices[0].choose}`}</label>
+                <CheckboxForm 
+                  name='proficency' 
+                  options={classInfo?.proficiency_choices[0]} 
+                  onChange={(e) => changeAbilityBonus(e, classInfo?.proficiency_choices[0])}
+                />
+              </div>
+            </>
+          )}
+          
+          {formState == 8 && (
+            <div className={styles["attributes-table"]}>
+              {/* Your attributes table component */}
+              {atributesTable()}
+            </div>
+          )}
+          
+          {formState == 9 && (
+            <div className={styles["form-group"]}>
+              <label>Name your character</label>
+              <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter character name..."
+              />
+            </div>
+          )}
+
+          {/* Buttons Section */}
+          <div className={styles["buttons-container"]}>
+            {formState == 1 && raceList?.map((race) => (
+              <ButtonForm 
+                key={race.name} 
+                text={race.name} 
+                onClick={() => chooseRace(race)}
+              />
+            ))}
+            
+            {formState == 2 && subRaceList?.map((subRaces) => (
+              <ButtonForm 
+                key={subRaces.name} 
+                text={subRaces?.name} 
+                onClick={() => chooseSubRace(subRaces)}
+              />
+            ))}
+            
+            {formState == 5 && classesList?.map((classes) => (
+              <ButtonForm 
+                key={classes.name} 
+                text={classes?.name} 
+                onClick={() => chooseClass(classes)}
+              />
+            ))}
+          </div>
+        </form>
+      </div>
 
       
-      {formState == 1 ? raceList?.map((race) => <ButtonForm key={race.name} text={race.name} onClick={() => chooseRace(race)}/>) : null}
-      {formState == 2 ? subRaceList?.map((subRaces) => <ButtonForm key={subRaces.name} text={subRaces?.name} onClick={() => chooseSubRace(subRaces)}></ButtonForm>) : null}
-      {formState == 5 ? classesList?.map((classes) => <ButtonForm key={classes.name} text={classes?.name} onClick={() => chooseClass(classes)}></ButtonForm>) : null}
-      
 
-      {formState > 1 ? <button type="button" onClick={() => setFormState(1)}>Reset</button> : null}
-      {formState > 1 && formState < 10 ? <button type="button" onClick={() => setFormState((prev) => prev+1)}>Next</button> : null}
-      {formState == 10 ? <button type="button" onClick={() => HandleCreateCharacter((prev) => prev+1)}>Create</button> : null}
-    </>
+      {/* Navigation Buttons */}
+      <div className={styles["nav-buttons"]}>
+        {formState > 1 && (
+          <button 
+            type="button" 
+            className={`${styles['nav-btn']} ${styles['reset-btn']}`}
+            onClick={() => setFormState(1)}
+          >
+            Reset
+          </button>
+        )}
+        
+        {formState > 1 && formState < 10 && (
+          <button 
+            type="button" 
+            className={styles["nav-btn"]}
+            onClick={() => setFormState((prev) => prev + 1)}
+          >
+            Next →
+          </button>
+        )}
+      </div>
+
+      {/* Create Button */}
+      {formState == 10 && (
+        <button 
+          type="button" 
+          className={styles["create-btn"]}
+          onClick={() => HandleCreateCharacter((prev) => prev + 1)}
+        >
+          Create Character
+        </button>
+      )}
+    </div>
   )
 }
 

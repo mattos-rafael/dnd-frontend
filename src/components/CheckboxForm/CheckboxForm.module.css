@@ -1,0 +1,278 @@
+/* CheckboxForm.css - Mobile First - Column Layout */
+
+/* Fieldset Container */
+.checkbox-fieldset {
+  display: block;
+  margin: 0 0 24px 0;
+  padding: 0;
+  border: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Legend/Title */
+.checkbox-legend {
+  display: block;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #c084fc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #a855f7;
+}
+
+/* Checkbox Grid Container - COLUMN LAYOUT */
+.checkbox-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual Checkbox Option */
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 95%;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover Effect (Desktop) */
+@media (min-width: 768px) {
+  .checkbox-option:hover {
+    background: #4a1d6d;
+    border-color: #a855f7;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+  }
+}
+
+/* Active/Pressed State */
+.checkbox-option:active {
+  transform: scale(0.99);
+  transition: transform 0.05s ease;
+}
+
+/* Selected State (when checkbox is checked) */
+.checkbox-option:has(input:checked) {
+  background: linear-gradient(135deg, #4a1d6d 0%, #3a0d5d 95%);
+  border-color: #a855f7;
+  border-width: 2px;
+  box-shadow: 0 0 0 1px #c084fc, 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+/* Checkbox Label */
+.checkbox-label {
+  flex: 1;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e0e0e0;
+  text-transform: capitalize;
+  cursor: pointer;
+  order: 1;
+}
+
+/* Selected Label Style */
+.checkbox-option:has(input:checked) .checkbox-label {
+  color: #c084fc;
+  font-weight: 600;
+}
+
+/* Hidden Checkbox Input */
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Custom Checkbox */
+.checkbox-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  background: #2d2d2d;
+  border: 2px solid #6b6b6b;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  order: 0;
+}
+
+/* Checkmark */
+.checkbox-custom::after {
+  content: "✓";
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+/* Checked State */
+.checkbox-input:checked + .checkbox-custom {
+  background: #a855f7;
+  border-color: #a855f7;
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Focus State for Accessibility */
+.checkbox-input:focus-visible + .checkbox-custom {
+  outline: 2px solid #c084fc;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
+}
+
+/* Disabled State */
+.checkbox-input:disabled,
+.checkbox-option:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================ */
+/* Responsive Breakpoints - Column stays column */
+/* ============================================ */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .checkbox-option {
+    padding: 14px 18px;
+  }
+  
+  .checkbox-label {
+    font-size: 15px;
+  }
+  
+  .checkbox-option:hover {
+    transform: translateX(4px);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .checkbox-legend {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .checkbox-option {
+    padding: 14px 20px;
+  }
+  
+  .checkbox-label {
+    font-size: 15px;
+  }
+  
+  .checkbox-custom {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+  }
+  
+  .checkbox-custom::after {
+    font-size: 15px;
+  }
+  
+  .checkbox-option:hover {
+    transform: translateX(8px);
+  }
+}
+
+/* ============================================ */
+/* Optional: Add max-height with scroll for many items */
+/* ============================================ */
+
+.checkbox-grid {
+ 
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.checkbox-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.checkbox-grid::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 3px;
+}
+
+.checkbox-grid::-webkit-scrollbar-thumb {
+  background: #a855f7;
+  border-radius: 3px;
+}
+
+.checkbox-grid::-webkit-scrollbar-thumb:hover {
+  background: #c084fc;
+}
+
+/* ============================================ */
+/* Touch Device Optimizations */
+/* ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  .checkbox-option:active {
+    transform: scale(0.98);
+    background: #4a1d6d;
+  }
+  
+  .checkbox-option {
+    cursor: default;
+  }
+  
+  .checkbox-label {
+    cursor: default;
+  }
+}
+
+/* ============================================ */
+/* Animations */
+/* ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkBounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  95% {
+    transform: scale(1);
+  }
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  animation: checkBounce 0.3s ease;
+}

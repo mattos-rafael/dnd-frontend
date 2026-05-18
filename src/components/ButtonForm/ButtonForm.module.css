@@ -1,0 +1,424 @@
+/* ButtonForm.module.css - Mobile First */
+
+/* Base Button Styles */
+.button {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  /* Spacing */
+  padding: 14px 24px;
+  margin: 0;
+  
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  white-space: nowrap;
+  
+  /* Background - Light Purple */
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  
+  /* Border */
+  border: none;
+  border-radius: 12px;
+  
+  /* Interactive */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  /* Sizing */
+  min-width: 120px;
+  width: auto;
+  
+  /* Position for ripple effect */
+  position: relative;
+  overflow: hidden;
+  
+  /* Accessibility */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover Effect (Desktop only) */
+@media (min-width: 768px) {
+  .button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+    box-shadow: 0 6px 16px rgba(168, 85, 247, 0.3);
+  }
+}
+
+/* Active/Pressed State */
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+  transition: transform 0.05s ease;
+}
+
+/* Focus State for Accessibility */
+.button:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+/* Disabled State */
+.button:disabled,
+.button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  pointer-events: none;
+  filter: grayscale(0.2);
+}
+
+/* Selected/Toggle State */
+.button.selected {
+  background: linear-gradient(135deg, #7e22ce 0%, #6b21a5 100%);
+  box-shadow: 0 0 0 2px #c084fc, 0 4px 12px rgba(168, 85, 247, 0.3);
+  transform: scale(0.98);
+}
+
+/* Loading State */
+.button.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.button.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Ripple Effect on Click */
+.button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Button with Icon */
+.button.hasIcon {
+  gap: 8px;
+}
+
+.buttonIcon {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .button:hover .buttonIcon {
+    transform: scale(1.1);
+  }
+}
+
+/* ============================================ */
+/* Button Variants */
+/* ============================================ */
+
+/* Primary Variant (Default) */
+.primary {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+}
+
+/* Secondary Variant - Darker Purple */
+.secondary {
+  background: linear-gradient(135deg, #6b21a5 0%, #581c87 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  .secondary:hover {
+    background: linear-gradient(135deg, #7e22ce 0%, #6b21a5 100%);
+  }
+}
+
+/* Outline Variant */
+.outline {
+  background: transparent;
+  border: 2px solid #a855f7;
+  color: #c084fc;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .outline:hover {
+    background: rgba(168, 85, 247, 0.1);
+    transform: translateY(-2px);
+    color: white;
+  }
+}
+
+.outline:active {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+/* Ghost Variant - No background */
+.ghost {
+  background: transparent;
+  box-shadow: none;
+  color: #c084fc;
+}
+
+@media (min-width: 768px) {
+  .ghost:hover {
+    background: rgba(168, 85, 247, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* Danger Variant - For delete/cancel actions */
+.danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+@media (min-width: 768px) {
+  .danger:hover {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+  }
+}
+
+/* Success Variant - For confirm actions */
+.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+@media (min-width: 768px) {
+  .success:hover {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* ============================================ */
+/* Button Sizes */
+/* ============================================ */
+
+/* Small Size */
+.small {
+  padding: 8px 16px;
+  font-size: 12px;
+  min-width: 90px;
+  border-radius: 8px;
+}
+
+/* Medium Size (Default) */
+.medium {
+  padding: 14px 24px;
+  font-size: 15px;
+  min-width: 120px;
+  border-radius: 12px;
+}
+
+/* Large Size */
+.large {
+  padding: 16px 32px;
+  font-size: 17px;
+  min-width: 160px;
+  border-radius: 14px;
+}
+
+/* Extra Large Size */
+.xlarge {
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 200px;
+  border-radius: 16px;
+}
+
+/* Full Width Button */
+.fullWidth {
+  width: 100%;
+  max-width: none;
+}
+
+/* ============================================ */
+/* Special Effects */
+/* ============================================ */
+
+/* Glow Effect */
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Pulse Effect */
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Gradient Border Effect */
+.gradientBorder {
+  position: relative;
+  background: #2d2d2d;
+  border-radius: 12px;
+}
+
+.gradientBorder::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .gradientBorder:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ============================================ */
+/* Animations */
+/* ============================================ */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ============================================ */
+/* Responsive Breakpoints */
+/* ============================================ */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .button {
+    padding: 14px 28px;
+    font-size: 15px;
+    min-width: 130px;
+  }
+  
+  .small {
+    padding: 10px 20px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+  
+  .large {
+    padding: 16px 36px;
+    font-size: 17px;
+    min-width: 180px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .button {
+    padding: 16px 32px;
+    font-size: 16px;
+    min-width: 140px;
+    cursor: pointer;
+  }
+  
+  .small {
+    padding: 10px 24px;
+    font-size: 13px;
+    min-width: 110px;
+  }
+  
+  .large {
+    padding: 18px 40px;
+    font-size: 18px;
+    min-width: 200px;
+  }
+  
+  .xlarge {
+    padding: 20px 48px;
+    font-size: 20px;
+    min-width: 240px;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 480px) {
+  .button {
+    padding: 12px 16px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+}
+
+/* ============================================ */
+/* Touch Device Optimizations */
+/* ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  .button:active {
+    transform: scale(0.96);
+    transition: transform 0.05s;
+  }
+  
+  .button:active::before {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ============================================ */
+/* Dark Mode Support */
+/* ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+}

@@ -21,18 +21,22 @@ const request = async (callback) => {
 const registerUser = (payload) => request(() => api.post('/api/auth/register', payload))
 const loginUser = (payload) => request(() => api.post('/api/auth/login', payload))
 const logoutUser = () => request(() => api.post('/api/auth/logout'))
+const changePasswordUser = (payload) => request(() => api.put('/api/auth/changePassword', payload))
 const getMe = () => request(() => api.get('/api/auth/me'))
 
 const createCharacter = (payload) => request(() => api.post('/api/character', payload))
 const createUserCharacter = (payload) => request(() => api.post('/api/user', payload))
 const getUserCharacters = () => request(() => api.get('/api/user'))
+const deleteCharacter = (payload) => request(() => api.delete(`/api/user/${payload}`))
 
 export {
   registerUser,
   loginUser,
   logoutUser,
+  changePasswordUser,
   getMe,
   createCharacter,
   createUserCharacter,
-  getUserCharacters
+  getUserCharacters,
+  deleteCharacter
 }

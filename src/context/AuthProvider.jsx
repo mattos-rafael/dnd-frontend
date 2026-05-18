@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getMe, loginUser, logoutUser, registerUser } from '../services/api.js'
+import { getMe, loginUser, logoutUser, registerUser, changePasswordUser } from '../services/api.js'
 import { AuthContext } from './authContext.js'
 
 export function AuthProvider({ children }) {
@@ -48,6 +48,16 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const changePassword = async (payload) => {
+    try {
+      const data = await changePasswordUser(payload)
+      return data
+      setError('')
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   const logout = async () => {
     try {
       await logoutUser()
@@ -65,6 +75,7 @@ export function AuthProvider({ children }) {
         setError,
         login,
         register,
+        changePassword,
         logout,
         refreshSession,
       }}

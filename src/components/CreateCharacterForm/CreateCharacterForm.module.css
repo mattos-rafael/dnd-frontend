@@ -1,0 +1,640 @@
+
+/* Main Container - Mobile First */
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Forms Wrapper - Stacked on mobile */
+.forms-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Individual Forms - Mobile First */
+.info-form,
+.center-form {
+  background: #2d2d2d;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Left Form Specific (Info Form) */
+.info-form {
+  border-left: 4px solid #a855f7;
+}
+
+/* Center Form Specific */
+.center-form {
+  border-left: 4px solid #7e22ce;
+}
+
+/* Form Titles */
+.form-title {
+  color: #e0e0e0;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #a855f7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-title::before {
+  content: "✨";
+  font-size: 20px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 18px;
+}
+
+/* Labels */
+label {
+  display: block;
+  color: #c084fc;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  color: #e0e0e0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+  background: #404040;
+}
+
+input[type="text"]:disabled,
+input[type="number"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Readonly inputs (information display) */
+.info-form input[readonly] {
+  background: #252525;
+  cursor: default;
+  border-color: #3a3a3a;
+}
+
+/* ============================================ */
+/* BUTTON FORM STYLES - Comprehensive */
+/* ============================================ */
+
+/* Button Container */
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+  justify-content: center;
+}
+
+/* Base ButtonForm Style */
+.button-form {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Button Hover Effect (Desktop) */
+@media (min-width: 1024px) {
+  .button-form:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+    background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+  }
+}
+
+/* Button Active/Pressed State */
+.button-form:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.05s ease;
+}
+
+/* Button Focus State */
+.button-form:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+/* Button Disabled State */
+.button-form:disabled,
+.button-form.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  pointer-events: none;
+  filter: grayscale(0.2);
+}
+
+/* Selected/Pressed Button (for toggle behavior) */
+.button-form.selected {
+  background: linear-gradient(135deg, #7e22ce 0%, #6b21a5 100%);
+  box-shadow: 0 0 0 2px #c084fc, 0 4px 12px rgba(168, 85, 247, 0.3);
+  transform: scale(0.98);
+}
+
+/* Button Loading State */
+.button-form.loading {
+  position: relative;
+  color: transparent;
+}
+
+.button-form.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Button with Icon */
+.button-form.has-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-form .button-icon {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.button-form:hover .button-icon {
+  transform: scale(1.1);
+}
+
+/* Button Variants */
+.button-form.primary {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+}
+
+.button-form.secondary {
+  background: linear-gradient(135deg, #6b21a5 0%, #581c87 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-form.outline {
+  background: transparent;
+  border: 2px solid #a855f7;
+  color: #c084fc;
+  box-shadow: none;
+}
+
+.button-form.outline:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+.button-form.small {
+  padding: 8px 16px;
+  font-size: 13px;
+  min-width: 100px;
+}
+
+.button-form.large {
+  padding: 16px 32px;
+  font-size: 18px;
+  min-width: 180px;
+}
+
+/* Button Animation Effects */
+.button-form::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.button-form:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Button Grid Layouts */
+.buttons-container.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.buttons-container.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.buttons-container.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Button Form Special Effects */
+.button-form.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ============================================ */
+/* Navigation Buttons */
+/* ============================================ */
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.nav-btn {
+  background: #3a3a3a;
+  color: #e0e0e0;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex: 1;
+  max-width: 180px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:active {
+  transform: scale(0.96);
+  background: #4a4a4a;
+}
+
+@media (min-width: 1024px) {
+  .nav-btn:hover {
+    background: #4a4a4a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.reset-btn {
+  background: #4a1d6d;
+  color: #c084fc;
+}
+
+.reset-btn:hover {
+  background: #5a2d7d;
+  color: #d4a4fc;
+}
+
+/* Create Button */
+.create-btn {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.create-btn:active {
+  transform: scale(0.97);
+}
+
+@media (min-width: 1024px) {
+  .create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+    background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+  }
+}
+
+.create-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.create-btn:active::before {
+  width: 400px;
+  height: 400px;
+}
+
+/* ============================================ */
+/* Checkbox Form Styles */
+/* ============================================ */
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #3a3a3a;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex: 1;
+  min-width: calc(50% - 12px);
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #a855f7;
+}
+
+.checkbox-option label {
+  margin: 0;
+  cursor: pointer;
+  color: #e0e0e0;
+  text-transform: none;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.checkbox-option.selected {
+  background: #4a1d6d;
+  border: 1px solid #a855f7;
+}
+
+@media (min-width: 1024px) {
+  .checkbox-option:hover {
+    background: #4a1d6d;
+    transform: translateY(-2px);
+  }
+}
+
+/* ============================================ */
+/* Attributes Table */
+/* ============================================ */
+
+.attributes-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.attribute-item {
+  background: #3a3a3a;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.attribute-name {
+  color: #c084fc;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.attribute-value {
+  color: #e0e0e0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ============================================ */
+/* Animations */
+/* ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ============================================ */
+/* Responsive Breakpoints */
+/* ============================================ */
+
+/* Tablet */
+@media (min-width: 768px) {
+  body {
+    padding: 24px;
+  }
+
+  .forms-wrapper {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .info-form {
+    flex: 1;
+    max-width: 35%;
+  }
+
+  .center-form {
+    flex: 1.5;
+    max-width: 65%;
+  }
+
+  .info-form,
+  .center-form {
+    padding: 28px;
+  }
+
+  .buttons-container.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .checkbox-option {
+    min-width: calc(33.333% - 12px);
+  }
+
+  .attributes-table {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  body {
+    padding: 32px;
+  }
+
+  .forms-wrapper {
+    gap: 32px;
+  }
+
+  .info-form,
+  .center-form {
+    padding: 32px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .buttons-container {
+    gap: 16px;
+  }
+
+  .button-form {
+    min-width: 160px;
+    max-width: 220px;
+    font-size: 16px;
+  }
+
+  .attributes-table {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .info-form {
+    max-width: 30%;
+  }
+
+  .center-form {
+    max-width: 70%;
+  }
+
+  .buttons-container {
+    gap: 20px;
+  }
+
+  .button-form {
+    min-width: 180px;
+    max-width: 240px;
+    padding: 16px 28px;
+    font-size: 17px;
+  }
+
+  .attributes-table {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Touch-friendly optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .button-form:active {
+    transform: scale(0.96);
+    transition: transform 0.05s;
+  }
+  
+  .nav-btn:active {
+    transform: scale(0.96);
+  }
+  
+  .checkbox-option:active {
+    transform: scale(0.98);
+  }
+}
