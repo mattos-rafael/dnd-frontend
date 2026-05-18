@@ -40,7 +40,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
   //else // setAnswers([...answers,bonusObject])
   //uncheck action
   if(answers.length < source.choose) {
-    console.log(source.from.options)
     if (e.target.checked) {
       setAnswers((prev) => [...prev, ...source.from?.options.filter((option) => {
         if (option.ability_score) {
@@ -57,7 +56,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
       setAnswers((prev) => {
         const updatedAnswer = [...prev]
         const index = updatedAnswer.findIndex(() => e.target.value)
-        console.log(index)
         updatedAnswer.splice(index, 1)
         return updatedAnswer
       })
@@ -82,7 +80,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
           }
           
         })
-        console.log(index)
         updatedAnswer.splice(index, 1)
         return updatedAnswer
       })
@@ -139,7 +136,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
   // Form state
   useEffect(() => {
-    console.log(formState)
 
     if (formState == 1) {
       setUrl(`https://www.dnd5eapi.co/api/races`)
@@ -245,7 +241,6 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
   // Class info
   useEffect(() => {
-    console.log(classInfo)
 
     if (formState == 6) {
       setHitDie(classInfo?.hit_die)
@@ -263,31 +258,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
     
   }, [classInfo])
 
-  // useEffect(() => {
-  //   console.log(abilityBonus)
-  // }, [abilityBonus])
-  // useEffect(() => {
-  //   console.log(traits)
-  // }, [traits])
-  // useEffect(() => {
-  //   console.log(languages)
-  // }, [languages])
-  // useEffect(() => {
-  //   console.log(subRaceInfo)
-  // }, [subRaceInfo])
-  // useEffect(() => {
-  //   console.log(answers)
-  // }, [answers])
-  // useEffect(() => {
-  //   console.log(classesList)
-  // }, [classesList])
-  // useEffect(() => {
-  //   console.log(proficiencies)
-  // }, [proficiencies])
-  // useEffect(() => {
-  //   console.log("form data")
-  //   console.log(formData)
-  // }, [formData])
+
 
     
   const normilize = () => {
