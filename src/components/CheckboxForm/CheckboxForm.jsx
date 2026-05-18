@@ -1,7 +1,6 @@
 import styles from './CheckboxForm.module.css'
 
 function CheckboxForm({ options, title, onChange }) {
-  console.log(options)
   return (
     <fieldset className={styles["checkbox-fieldset"]}>
       {title && <legend className={styles["checkbox-legend"]}>{title}</legend>}

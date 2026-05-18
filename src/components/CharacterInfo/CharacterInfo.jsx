@@ -8,9 +8,6 @@ function CharacterInfo () {
   const navigate = useNavigate()
   const character = location.state.character
 
-  useEffect(() => {
-    console.log(location.state.character)
-  }, [])
 
   const getAtributes = (atr) => {
     const res = character?.atributes.map(atribute => {
