@@ -15,7 +15,6 @@ function Login() {
     try {
       const res = await login(formData)
       navigate('/dashboard')
-      console.log(res)
     } catch (err) {
       throw err
     }
