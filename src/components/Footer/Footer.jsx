@@ -2,7 +2,7 @@ function Footer() {
 
   return(
     <footer>
-      <p>I'm the footer</p>
+      <p>Made by Mattos Rafael</p>
     </footer>
   )
 }
