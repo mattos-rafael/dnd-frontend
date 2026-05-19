@@ -299,6 +299,7 @@ input[type="number"]:disabled {
   display: flex;
   gap: 12px;
   margin-top: 20px;
+  margin-bottom: 20px;
   justify-content: center;
 }
 

@@ -380,6 +380,41 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
   return(
     <div className={styles["app-container"]}>
+
+      {/* Navigation Buttons */}
+      <div className={styles["nav-buttons"]}>
+        {formState > 1 && (
+          <button 
+            type="button" 
+            className={`${styles['nav-btn']} ${styles['reset-btn']}`}
+            onClick={() => setFormState(1)}
+          >
+            Reset
+          </button>
+        )}
+        
+        {formState > 1 && formState < 10 && (
+          <button 
+            type="button" 
+            className={styles["nav-btn"]}
+            onClick={() => setFormState((prev) => prev + 1)}
+          >
+            Next →
+          </button>
+        )}
+      </div>
+
+      {/* Create Button */}
+      {formState == 10 && (
+        <button 
+          type="button" 
+          className={styles["create-btn"]}
+          onClick={() => HandleCreateCharacter((prev) => prev + 1)}
+        >
+          Create Character
+        </button>
+      )}
+
       <div className={styles["forms-wrapper"]}>
         {/* Left Form - Information Display */}
         <form className={styles["info-form"]}>
@@ -526,39 +561,7 @@ const changeAbilityBonus=(e, source) =>{//{name,bonus}
 
       
 
-      {/* Navigation Buttons */}
-      <div className={styles["nav-buttons"]}>
-        {formState > 1 && (
-          <button 
-            type="button" 
-            className={`${styles['nav-btn']} ${styles['reset-btn']}`}
-            onClick={() => setFormState(1)}
-          >
-            Reset
-          </button>
-        )}
-        
-        {formState > 1 && formState < 10 && (
-          <button 
-            type="button" 
-            className={styles["nav-btn"]}
-            onClick={() => setFormState((prev) => prev + 1)}
-          >
-            Next →
-          </button>
-        )}
-      </div>
-
-      {/* Create Button */}
-      {formState == 10 && (
-        <button 
-          type="button" 
-          className={styles["create-btn"]}
-          onClick={() => HandleCreateCharacter((prev) => prev + 1)}
-        >
-          Create Character
-        </button>
-      )}
+      
     </div>
   )
 }
