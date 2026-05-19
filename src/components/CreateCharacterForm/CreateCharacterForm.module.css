@@ -355,6 +355,7 @@ input[type="number"]:disabled {
   transition: all 0.3s ease;
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   position: relative;
